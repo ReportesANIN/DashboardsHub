@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANIN | Dashboard Hub</title>
+  <meta name="description" content="Hub institucional de dashboards ANIN" />
+  <link rel="icon" href="img/logo-anin.png" />
+  <style>
+    :root{
+      /* ======= PALETA (ajusta aquí) ======= */
+      --brand-navy: #0E2A47;   /* cabecera / sidebar */
+      --brand-blue: #0070C0;   /* primario */
+      --brand-green:#00A36C;   /* acciones */
+      --accent-1:   #6A5AE0;   /* acento opcional */
+      --accent-2:   #F39C12;   /* advertencia */
+      --muted-ink:  #1f2937;   /* texto principal */
+      --muted-70:   #6b7280;   /* texto secundario */
+      --bg-page:    #f3f5f7;   /* fondo general claro (compatible con iframes gris claro) */
+      --bg-card:    #ffffff;   /* tarjetas */
+      --ring:       rgba(0,112,192,0.25);
+      --shadow:     0 10px 30px rgba(2, 12, 27, .08);
+      --radius-xl:  18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:"Segoe UI", Arial, system-ui, -apple-system, sans-serif; background:var(--bg-page); color:var(--muted-ink);}
+
+    /* ======= LAYOUT ======= */
+    .app{display:grid; grid-template-columns: 280px 1fr; min-height:100vh}
+    .sidebar{background:var(--brand-navy); color:#cbd5e1; padding:22px 16px; position:sticky; top:0; height:100vh; overflow:auto}
+    .brand{display:flex; align-items:center; gap:10px; padding:6px 10px; border-radius:12px}
+    .brand img{height:28px; width:auto}
+    .brand strong{color:#fff; letter-spacing:.4px}
+
+    .search{margin:14px 10px 8px}
+    .search input{width:100%; padding:10px 12px; border-radius:12px; border:1px solid transparent; outline:none; background:#0b2038; color:#e5e7eb}
+    .search input::placeholder{color:#8aa1ba}
+
+    nav{padding:6px 6px 20px}
+    .group{margin-top:12px}
+    .group-title{font-size:.78rem; color:#8aa1ba; margin:12px 12px}
+    .item{display:flex; align-items:center; gap:10px; padding:10px 12px; margin:6px 6px; border-radius:10px; cursor:pointer; user-select:none}
+    .item:hover{background:#123357}
+    .item.active{background:linear-gradient(90deg, rgba(0,112,192,.25), rgba(0,163,108,.25)); color:#fff}
+    .item .icon{width:18px; height:18px; opacity:.9}
+
+    /* ======= MAIN ======= */
+    .main{padding:26px 28px}
+    header.top{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px}
+    header.top h1{font-size:1.35rem; margin:0; letter-spacing:.2px}
+    .chip{font-size:.78rem; background:#e8eef6; color:#0c2f52; padding:6px 10px; border-radius:999px}
+
+    .cards{display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:18px}
+    .card{background:var(--bg-card); border-radius:var(--radius-xl); box-shadow:var(--shadow); padding:18px; display:flex; flex-direction:column; gap:10px; border:1px solid #e8eaef}
+    .card h3{margin:4px 0; color:var(--brand-blue)}
+    .card p{margin:0; color:var(--muted-70)}
+    .actions{display:flex; gap:8px; flex-wrap:wrap}
+    .btn{appearance:none; border:none; padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:600}
+    .btn.primary{background:var(--brand-green); color:#fff}
+    .btn.ghost{background:#eef2f7; color:#0b2440}
+    .btn:hover{transform:translateY(-1px)}
+
+    /* ======= VIEWER (embeds) ======= */
+    .viewer{margin-top:22px; background:#fff; border-radius:var(--radius-xl); box-shadow:var(--shadow); border:1px solid #e8eaef}
+    .viewer .bar{display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #eef1f5}
+    .viewer .bar .title{font-weight:700; color:#0b2440}
+    .viewer iframe{width:100%; height:78vh; border:0; border-radius:0 0 var(--radius-xl) var(--radius-xl)}
+
+    footer{opacity:.8; font-size:.85rem; text-align:center; padding:24px}
+    .hidden{display:none}
+
+    /* Small screens */
+    @media(max-width: 940px){
+      .app{grid-template-columns: 1fr}
+      .sidebar{height:auto; position:relative}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- ====== SIDEBAR ====== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="img/logo-anin.png" alt="ANIN" onerror="this.style.display='none'"/>
+        <strong>ANIN | Dashboard Hub</strong>
+      </div>
+      <div class="search">
+        <input id="q" type="search" placeholder="Buscar dashboard…" oninput="filterMenu(this.value)">
+      </div>
+      <nav id="menu">
+        <div class="group">
+          <div class="group-title">GESTIÓN</div>
+          <div class="item" data-route="#/gestion/sgd" onclick="openRoute('#/gestion/sgd')">📎 Gestión SGD</div>
+          <div class="item" data-route="#/gestion/os" onclick="openRoute('#/gestion/os')">🧩 Gestión OS</div>
+        </div>
+        <div class="group">
+          <div class="group-title">PROYECTOS SALUD</div>
+          <div class="item" data-route="#/salud/seguimiento" onclick="openRoute('#/salud/seguimiento')">📊 Seguimiento de Actividades</div>
+          <div class="item" data-route="#/salud/la-caleta" onclick="openRoute('#/salud/la-caleta')">🏥 La Caleta</div>
+          <div class="item" data-route="#/salud/plan-mil" onclick="openRoute('#/salud/plan-mil')">🧱 Plan Mil</div>
+          <div class="item" data-route="#/salud/iren-norte" onclick="openRoute('#/salud/iren-norte')">🧪 IREN Norte</div>
+          <div class="item" data-route="#/salud/iren-sur" onclick="openRoute('#/salud/iren-sur')">🧪 IREN Sur</div>
+        </div>
+        <div class="group">
+          <div class="group-title">PROYECTOS SI</div>
+          <div class="item" data-route="#/si/drenaje-piura" onclick="openRoute('#/si/drenaje-piura')">💧 Drenaje Piura</div>
+        </div>
+        <div class="group">
+          <div class="group-title">PROYECTOS LINEALES</div>
+          <div class="item" data-route="#/lineales/general" onclick="openRoute('#/lineales/general')">🛣️ General</div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ====== MAIN ====== -->
+    <main class="main">
+      <header class="top">
+        <h1>Bienvenida/o</h1>
+        <span class="chip">Versión inicial • GitHub Pages</span>
+      </header>
+
+      <!-- Tarjetas intro -->
+      <section class="cards" id="cards">
+        <article class="card">
+          <h3>¿Qué es este hub?</h3>
+          <p>Portal central de dashboards institucionales de ANIN. Usa el menú lateral para abrir cada visor.</p>
+          <div class="actions">
+            <button class="btn primary" onclick="openRoute('#/salud/la-caleta')">Abrir: La Caleta</button>
+            <button class="btn ghost" onclick="openRoute('#/salud/seguimiento')">Abrir: Seguimiento</button>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Colores corporativos</h3>
+          <p>La UI usa azul ANIN y verde de acción. Puedes ajustar la paleta editando las variables CSS en <code>:root</code>.</p>
+          <div class="actions">
+            <button class="btn ghost" onclick="alert('Edita las variables en la sección :root del CSS.')">Ver variables</button>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Buenas prácticas</h3>
+          <p>Para datos sensibles, evita “Publicar en la Web”. Prefiere <em>Secure Embed</em> o accesos con AAD.</p>
+        </article>
+      </section>
+
+      <!-- Visor de embeds -->
+      <section class="viewer hidden" id="viewer">
+        <div class="bar">
+          <div class="title" id="viewerTitle">Dashboard</div>
+          <div>
+            <button class="btn ghost" onclick="window.open(currentSrc, '_blank')">Abrir en pestaña</button>
+          </div>
+        </div>
+        <iframe id="frame" src="about:blank" allowfullscreen></iframe>
+      </section>
+
+      <footer>© 2025 ANIN – Unidad de Datos e Innovación</footer>
+    </main>
+  </div>
+
+  <script>
+    // ====== Configura aquí las URLs de Power BI (o Tableau/otros) ======
+    const ROUTES = {
+      '#/gestion/sgd':        { title: 'Gestión SGD',            src: 'https://app.powerbi.com/view?r=REEMPLAZA_SGD' },
+      '#/gestion/os':         { title: 'Gestión OS',             src: 'https://app.powerbi.com/view?r=REEMPLAZA_OS' },
+      '#/salud/seguimiento':  { title: 'Seguimiento de Actividades', src: 'https://app.powerbi.com/view?r=REEMPLAZA_SEGUIMIENTO' },
+      '#/salud/la-caleta':    { title: 'Proyecto Hospital La Caleta', src: 'https://app.powerbi.com/view?r=REEMPLAZA_LA_CALETa' },
+      '#/salud/plan-mil':     { title: 'Plan Mil',                src: 'https://app.powerbi.com/view?r=REEMPLAZA_PLAN_MIL' },
+      '#/salud/iren-norte':   { title: 'IREN Norte',              src: 'https://app.powerbi.com/view?r=REEMPLAZA_IREN_NORTE' },
+      '#/salud/iren-sur':     { title: 'IREN Sur',                src: 'https://app.powerbi.com/view?r=REEMPLAZA_IREN_SUR' },
+      '#/si/drenaje-piura':   { title: 'Drenaje Piura',           src: 'https://app.powerbi.com/view?r=REEMPLAZA_DRENAJE' },
+      '#/lineales/general':   { title: 'Proyectos Lineales – General', src: 'https://app.powerbi.com/view?r=REEMPLAZA_LINEALES' },
+    };
+
+    const frame = document.getElementById('frame');
+    const viewer = document.getElementById('viewer');
+    const cards = document.getElementById('cards');
+    const title = document.getElementById('viewerTitle');
+    const menu = document.getElementById('menu');
+    let currentSrc = '';
+
+    function openRoute(hash){
+      location.hash = hash;
+      render();
+    }
+
+    function render(){
+      const route = ROUTES[location.hash];
+      document.querySelectorAll('.item').forEach(n=> n.classList.toggle('active', n.dataset.route === location.hash));
+      if(route){
+        title.textContent = route.title;
+        currentSrc = route.src;
+        frame.src = route.src;
+        cards.classList.add('hidden');
+        viewer.classList.remove('hidden');
+        document.title = `ANIN | ${route.title}`;
+      }else{
+        viewer.classList.add('hidden');
+        cards.classList.remove('hidden');
+        document.title = 'ANIN | Dashboard Hub';
+      }
+    }
+
+    function filterMenu(q){
+      const term = q.toLowerCase();
+      menu.querySelectorAll('.item').forEach(li =>{
+        li.style.display = li.textContent.toLowerCase().includes(term) ? '' : 'none';
+      });
+    }
+
+    // Cargar ruta inicial si viene con hash
+    window.addEventListener('hashchange', render);
+    window.addEventListener('DOMContentLoaded', render);
+  </script>
+</body>
+</html>

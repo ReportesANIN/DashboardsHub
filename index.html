@@ -92,25 +92,27 @@
       <nav id="menu">
         <div class="group">
           <div class="group-title">GESTIÓN</div>
+          <div class="item" data-route="#/gestion/aconex" onclick="openRoute('#/gestion/aconex')">✉️ Aconex</div>
+          <div class="item" data-route="#/gestion/seguimiento" onclick="openRoute('#/gestion/seguimiento')">📅 Seguimiento de Actividades</div>
           <div class="item" data-route="#/gestion/sgd" onclick="openRoute('#/gestion/sgd')">📎 Gestión SGD</div>
           <div class="item" data-route="#/gestion/os" onclick="openRoute('#/gestion/os')">🧩 Gestión OS</div>
-          <div class="item" data-route="#/gestion/aconex" onclick="openRoute('#/gestion/aconex')">✉️ Aconex</div>
         </div>
         <div class="group">
-          <div class="group-title">PROYECTOS SALUD</div>
-          <div class="item" data-route="#/salud/seguimiento" onclick="openRoute('#/salud/seguimiento')">📊 Seguimiento de Actividades</div>
-          <div class="item" data-route="#/salud/la-caleta" onclick="openRoute('#/salud/la-caleta')">🏥 La Caleta</div>
+          <div class="group-title">PROYECTO LA CALETA</div>
+          <div class="item" data-route="#/lacaleta/diseño" onclick="openRoute('#/salud/diseño')"> 📁 Entregables de Diseño</div>
+          <div class="item" data-route="#/lacaleta/RAT" onclick="openRoute('#/salud/RAT')">⚠️ Alertas Tempranas</div>
+          <div class="item" data-route="#/lacaleta/planeamiento" onclick="openRoute('#/salud/planeamiento')">📅 Planeamiento</div>
+        </div>
+        <div class="group">
+          <div class="group-title">PROYECTO IREN SUR</div>
+          <div class="item" data-route="#/iren-sur/diseño" onclick="openRoute('#/iren-sur/diseño')">📁 Diseño de Contingencia</div>
+        </div>
+        <div class="group">
+          <div class="group-title"> OTROS PROYECTOS</div>
           <div class="item" data-route="#/salud/plan-mil" onclick="openRoute('#/salud/plan-mil')">🧱 Plan Mil</div>
           <div class="item" data-route="#/salud/iren-norte" onclick="openRoute('#/salud/iren-norte')">🏥 IREN Norte</div>
-          <div class="item" data-route="#/salud/iren-sur" onclick="openRoute('#/salud/iren-sur')">🏥 IREN Sur</div>
-        </div>
-        <div class="group">
-          <div class="group-title">PROYECTOS SI</div>
-          <div class="item" data-route="#/si/drenaje-piura" onclick="openRoute('#/si/drenaje-piura')">💧 Drenaje Piura</div>
-        </div>
-        <div class="group">
-          <div class="group-title">PROYECTOS LINEALES</div>
-          <div class="item" data-route="#/lineales/general" onclick="openRoute('#/lineales/general')">🛣️ General</div>
+          <div class="item" data-route="#/salud/drenaje-piura" onclick="openRoute('#/salud/drenaje-piura')">💧 Drenaje Piura</div>
+          <div class="item" data-route="#/salud/general" onclick="openRoute('#/salud/general')"> 🛣️ Proyectos Lineales</div>
         </div>
       </nav>
     </aside>
@@ -165,13 +167,15 @@
       '#/gestion/sgd':        { title: 'Gestión SGD',            src: 'https://app.powerbi.com/view?r=eyJrIjoiMTM2NDAxMmYtYTQ1YS00NmUwLTgyNDctNzNjYjUxZWM0YzMzIiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
       '#/gestion/os':         { title: 'Gestión OS',             src: 'https://app.powerbi.com/view?r=REEMPLAZA_OS' },
       '#/gestion/aconex':     { title: 'Aconex',             src: 'https://app.powerbi.com/view?r=eyJrIjoiODgxMjc1OGItNWNkMi00OWRiLTg1NzUtMjE5MTIyNWRjNGFmIiwidCI6IjVlOGNiMjRhLWE5YmMtNGNlMC04NzRjLTBiOGQzNGQ0NWFhYyIsImMiOjR9'},
-      '#/salud/seguimiento':  { title: 'Seguimiento de Actividades', src: 'https://app.powerbi.com/view?r=eyJrIjoiZjUzYmQwMGItNjRjYS00YmQ4LWI4M2MtMzk5NmEzZDA5ZTgyIiwidCI6IjVlOGNiMjRhLWE5YmMtNGNlMC04NzRjLTBiOGQzNGQ0NWFhYyIsImMiOjR9' },
-      '#/salud/la-caleta':    { title: 'Proyecto Hospital La Caleta', src: 'https://app.powerbi.com/view?r=eyJrIjoiZTljNDE3ZjUtZjU0NC00MjI3LWEzYmYtZDQzZDE2YjQzZTI3IiwidCI6IjVlOGNiMjRhLWE5YmMtNGNlMC04NzRjLTBiOGQzNGQ0NWFhYyIsImMiOjR9&pageName=868b3ebd6dd96777dab0' },
+      '#/gestion/seguimiento':  { title: 'Seguimiento de Actividades', src: 'https://app.powerbi.com/view?r=eyJrIjoiZjUzYmQwMGItNjRjYS00YmQ4LWI4M2MtMzk5NmEzZDA5ZTgyIiwidCI6IjVlOGNiMjRhLWE5YmMtNGNlMC04NzRjLTBiOGQzNGQ0NWFhYyIsImMiOjR9' },
+      '#/lacaleta/diseño':    { title: 'Entregables de Diseño', src: 'https://app.powerbi.com/view?r=eyJrIjoiZTljNDE3ZjUtZjU0NC00MjI3LWEzYmYtZDQzZDE2YjQzZTI3IiwidCI6IjVlOGNiMjRhLWE5YmMtNGNlMC04NzRjLTBiOGQzNGQ0NWFhYyIsImMiOjR9&pageName=868b3ebd6dd96777dab0' },
+      '#/lacaleta/RAT':       { title: 'Registro de Alertas Tempranas', src: 'https://app.powerbi.com/view?r=eyJrIjoiZTljNDE3ZjUtZjU0NC00MjI3LWEzYmYtZDQzZDE2YjQzZTI3IiwidCI6IjVlOGNiMjRhLWE5YmMtNGNlMC04NzRjLTBiOGQzNGQ0NWFhYyIsImMiOjR9&pageName=868b3ebd6dd96777dab0' },
+      '#/lacaleta/Planeamiento':    { title: 'Seguimiento de Planeamiento', src: 'https://app.powerbi.com/view?r=eyJrIjoiZTljNDE3ZjUtZjU0NC00MjI3LWEzYmYtZDQzZDE2YjQzZTI3IiwidCI6IjVlOGNiMjRhLWE5YmMtNGNlMC04NzRjLTBiOGQzNGQ0NWFhYyIsImMiOjR9&pageName=868b3ebd6dd96777dab0' },
       '#/salud/plan-mil':     { title: 'Plan Mil',                src: 'https://app.powerbi.com/view?r=eyJrIjoiY2Y4NDI4NzItZWFlNy00MjM3LTkxZDAtODI5YjY3YjQyNmQ4IiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
       '#/salud/iren-norte':   { title: 'IREN Norte',              src: 'https://app.powerbi.com/view?r=eyJrIjoiYWNlYTYyM2EtNjI1Yi00Y2NhLTgzODAtNTg3YWZjMGI2NzZmIiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
-      '#/salud/iren-sur':     { title: 'IREN Sur',                src: 'https://app.powerbi.com/view?r=eyJrIjoiMGM2ZTM2ZWEtYzAwYS00MzNhLTgyYzYtMWM0OTA5ODAzYTgxIiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
-      '#/si/drenaje-piura':   { title: 'Drenaje Piura',           src: 'https://app.powerbi.com/view?r=eyJrIjoiZTljNGMxM2ItOWUwZi00YjQ4LWJmYzctY2U1OTYzYmYwN2VkIiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
-      '#/lineales/general':   { title: 'Proyectos Lineales – General', src: 'https://app.powerbi.com/view?r=eyJrIjoiOGUwYWJhZTAtMTg4YS00MjFmLThhOTktN2MxNGMxNjE2YWI5IiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
+      '#/iren-sur/diseño':     { title: 'Diseño de Contingencia - IREN Sur',                src: 'https://app.powerbi.com/view?r=eyJrIjoiMGM2ZTM2ZWEtYzAwYS00MzNhLTgyYzYtMWM0OTA5ODAzYTgxIiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
+      '#/salud/drenaje-piura':   { title: 'Drenaje Piura',           src: 'https://app.powerbi.com/view?r=eyJrIjoiZTljNGMxM2ItOWUwZi00YjQ4LWJmYzctY2U1OTYzYmYwN2VkIiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
+      '#/salud/general':   { title: 'Proyectos Lineales – General', src: 'https://app.powerbi.com/view?r=eyJrIjoiOGUwYWJhZTAtMTg4YS00MjFmLThhOTktN2MxNGMxNjE2YWI5IiwidCI6IjkzN2JjYzgyLWZkYmYtNGYwMC1hOWUxLTUyN2U3NWUxMzU1MyIsImMiOjR9' },
     };
 
     const frame = document.getElementById('frame');
